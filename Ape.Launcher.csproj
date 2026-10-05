@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PublishTrimmed>false</PublishTrimmed>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <RootNamespace>Ape.Launcher</RootNamespace>
+    <AssemblyName>Ape.Launcher</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ape.Core\Ape.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Module libraries (and leftover *.Plugin.* sidecars) copy next to the exe. No plugins/ folder. -->
+  <ItemGroup>
+    <ApeModuleProject Include="..\Ape.Modules\**\Ape.Module.*.csproj"
+                      Exclude="..\Ape.Modules\**\*.Plugin.*.csproj;
+                               ..\Ape.Modules\**\Tests\**\*.csproj;
+                               ..\Ape.Modules\**\Tools\**\*.csproj;
+                               ..\Ape.Modules\**\Samples\**\*.csproj" />
+    <ApeModuleProject Include="..\Ape.Modules\**\*.Plugin.*.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="@(ApeModuleProject)" />
+  </ItemGroup>
+
+</Project>
